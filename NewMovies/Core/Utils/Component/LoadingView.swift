@@ -9,10 +9,9 @@ import SwiftUI
 
 struct LoadingView: View {
     var body: some View {
-        VStack {  
+        VStack{  
             ProgressView().progressViewStyle(CircularProgressViewStyle(tint: .blue))
                 .scaleEffect(3)
-            
             Text("Loading")
                 .fontWeight(.bold)
                 .foregroundColor(.blue)

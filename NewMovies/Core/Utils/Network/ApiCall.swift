@@ -20,13 +20,11 @@ protocol Endpoint {
 enum Endpoints {
     enum Gets: Endpoint {
         case popular
-        case detailMovie(id: String)
-        
+        case detailMovie(id: Int)
         public var url: String {
             switch self {
             case .popular: return
                 "\(MovieConstant.baseURL)3/movie/popular?api_key=\(MovieConstant.apiKey)"
-            
             case .detailMovie(let id): return
                 "\(MovieConstant.baseURL)3/movie/\(id)?api_key=\(MovieConstant.apiKey)"
             }

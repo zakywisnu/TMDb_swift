@@ -10,6 +10,14 @@ import RxSwift
 import RealmSwift
 import Combine
 
+protocol LocalDataSourceProtocol: class {
+    func getMovies() -> Observable<[MovieEntity]>
+    func addMovies(from movies: [MovieEntity]) -> Observable<Bool>
+    func updateFavoriteMovies(by idMovies: Int) -> Observable<MovieEntity>
+    func getDetailMovie(by id: Int) -> Observable<MovieEntity>
+    func getFavoriteMovies() -> Observable<[MovieEntity]>
+}
+
 final class LocalDataSource: NSObject {
     private let realm: Realm?
     
@@ -22,16 +30,7 @@ final class LocalDataSource: NSObject {
     }
 }
 
-protocol LocalDataSourceProtocol: class {
-    func getMovies() -> Observable<[MovieEntity]>
-    func addMovies(from movies: [MovieEntity]) -> Observable<Bool>
-    func updateFavoriteMovies(by idMovies: String) -> Observable<MovieEntity>
-    func getDetailMovie(by id: String) -> Observable<MovieEntity>
-    func getFavoriteMovies() -> Observable<[MovieEntity]>
-}
-
 extension LocalDataSource: LocalDataSourceProtocol {
-    
     func getFavoriteMovies() -> Observable<[MovieEntity]> {
         return Observable<[MovieEntity]>.create{ observer in
             if let realm = self.realm {
@@ -48,7 +47,6 @@ extension LocalDataSource: LocalDataSourceProtocol {
             return Disposables.create()
         }
     }
-    
     func getMovies() -> Observable<[MovieEntity]> {
         return Observable<[MovieEntity]>.create{ observer in
             if let realm = self.realm {
@@ -64,13 +62,12 @@ extension LocalDataSource: LocalDataSourceProtocol {
             return Disposables.create()
         }
     }
-    
-    func getDetailMovie(by id: String) -> Observable<MovieEntity> {
-        return Observable<MovieEntity>.create{ observer in
+    func getDetailMovie(by id: Int) -> Observable<MovieEntity> {
+        return Observable<MovieEntity>.create { observer in
             if let realm = self.realm {
                 let movies: Results<MovieEntity> = {
                     realm.objects(MovieEntity.self)
-                        .filter("id = '\(id)'")
+                        .filter("id = \(id)")
                 }()
                 if let movie = movies.first {
                     observer.onNext(movie)
@@ -78,7 +75,6 @@ extension LocalDataSource: LocalDataSourceProtocol {
                 } else {
                     observer.onError(DatabaseError.requestFailed)
                 }
-                
             } else {
                 observer.onError(DatabaseError.invalidInstance)
             }
@@ -90,7 +86,7 @@ extension LocalDataSource: LocalDataSourceProtocol {
         return Observable<Bool>.create{ observer in
             if let realm = self.realm {
                 do {
-                    try realm.write{
+                    try realm.write {
                         for movie in movies {
                             realm.add(movie, update: .all)
                         }
@@ -106,11 +102,10 @@ extension LocalDataSource: LocalDataSourceProtocol {
             return Disposables.create()
         }
     }
-    
-    func updateFavoriteMovies(by idMovies: String) -> Observable<MovieEntity> {
+    func updateFavoriteMovies(by idMovies: Int) -> Observable<MovieEntity> {
         return Observable<MovieEntity>.create{ observer in
             if let realm = self.realm, let movieEntity =  {
-                realm.objects(MovieEntity.self).filter("id = '\(idMovies)'")
+                realm.objects(MovieEntity.self).filter("id = \(idMovies)")
             }().first {
                 do {
                     try realm.write{

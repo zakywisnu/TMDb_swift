@@ -1,44 +1,42 @@
 //
-//  HomeView.swift
+//  FavoriteView.swift
 //  NewMovies
 //
-//  Created by Ahmad Zaky on 01/02/21.
+//  Created by Ahmad Zaky on 15/02/21.
 //
 
 import SwiftUI
 
-struct HomeView: View {
+struct FavoriteView: View {
     
-    @ObservedObject var presenter: HomePresenter
+    @ObservedObject var presenter: FavoritePresenter
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
     ]
     
+    
     var body: some View {
-        
         ZStack {
             if presenter.isLoading {
                 loadingIndicator
             } else if presenter.isError {
                 errorIndicator
-            } else if presenter.movies.isEmpty {
+            } else if presenter.movie.isEmpty {
                 emptyIndicator
             } else {
                 content
             }
-        }.onAppear {
-            if self.presenter.movies.count == 0 {
-                self.presenter.getMovies()
-            }
-        }.navigationBarTitle(
-            Text("Popular Movies"),displayMode: .automatic
+        }.onAppear{
+            self.presenter.getFavoriteMovie()
+        }
+        .navigationBarTitle(
+            Text("Favorite Movies"), displayMode: .automatic
         )
-        
     }
 }
 
-extension HomeView {
+extension FavoriteView {
     var loadingIndicator: some View {
         LoadingView()
     }
@@ -53,7 +51,7 @@ extension HomeView {
     var content: some View {
         ScrollView(.vertical,showsIndicators: false) {
             LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(self.presenter.movies, id: \.id) { item in
+                ForEach(self.presenter.movie, id: \.id) { item in
                     ZStack {
                         self.presenter.linkBuilder(for: item){
                             MovieList(movie: item)

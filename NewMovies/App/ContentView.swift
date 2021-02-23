@@ -6,12 +6,34 @@
 //
 
 import SwiftUI
+import Core
+import Movies
 
 struct ContentView: View {
-    @ObservedObject var presenter: HomePresenter
+    @EnvironmentObject var homePresenter: GetListPresenter<Int, MovieModel, Interactor<Int, [MovieModel], GetListMovieRepository<GetMovieLocalDataSource, GetListMovieRemoteDataSource, MovieListTransformer>>>
+    @EnvironmentObject var favoritePresenter: GetListPresenter<Int, MovieModel, Interactor<Int, [MovieModel], GetFavoriteMovieRepository<GetFavoriteLocalDataSource, MovieListTransformer>>>
     var body: some View {
-        NavigationView{
-            HomeView(presenter: presenter).environmentObject(presenter)
+        TabView {
+            NavigationView{
+                HomeView(presenter: homePresenter)
+            }.tabItem {
+                Image(systemName: "house")
+                Text("Home")
+            }
+            
+            NavigationView{
+                FavoriteView(presenter: favoritePresenter)
+            }.tabItem {
+                Image(systemName: "heart")
+                Text("Favorite")
+            }
+            
+            NavigationView{
+                ProfileView()
+            }.tabItem {
+                Image(systemName: "person")
+                Text("Profile")
+            }
         }
     }
 }

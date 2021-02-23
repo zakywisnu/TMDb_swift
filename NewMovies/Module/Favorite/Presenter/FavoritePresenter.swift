@@ -1,48 +1,48 @@
 //
-//  HomePresenter.swift
+//  FavoritePresenter.swift
 //  NewMovies
 //
-//  Created by Ahmad Zaky on 01/02/21.
+//  Created by Ahmad Zaky on 15/02/21.
 //
 
-import RxSwift
 import SwiftUI
+import RxSwift
 
-class HomePresenter: ObservableObject{
+class FavoritePresenter: ObservableObject {
     private let disposeBag = DisposeBag()
-    private let router = HomeRouter()
-    private let homeUseCase: HomeUseCase
+    private let favoriteUseCase: FavoriteUseCase
+    private let router = FavoriteRouter()
     
-    @Published var movies: [MovieModel] = []
+    init(favoriteUseCase: FavoriteUseCase) {
+        self.favoriteUseCase = favoriteUseCase
+    }
+    
+    @Published var movie: [MovieModel] = []
     @Published var errorMessages: String = ""
     @Published var isLoading: Bool = false
     @Published var isError: Bool = false
     
-    init(homeUseCase: HomeUseCase) {
-        self.homeUseCase = homeUseCase
-    }
-    
-    func getMovies() {
+    func getFavoriteMovie() {
         isLoading = true
-        homeUseCase.getMovies()
+        favoriteUseCase.getFavoriteMovie()
             .observe(on: MainScheduler.instance)
             .subscribe{ result in
-                self.movies = result
+                self.movie = result
             } onError: { error in
+                self.errorMessages = error.localizedDescription
                 self.isError = true
                 self.isLoading = false
-                self.errorMessages = error.localizedDescription
             } onCompleted: {
                 self.isLoading = false
                 self.isError = false
             }.disposed(by: disposeBag)
     }
     
-    func linkBuilder<Content: View>(
+    func linkBuilder<Content: View> (
         for movie: MovieModel,
         @ViewBuilder content: () -> Content
     ) -> some View {
-        NavigationLink(destination: router.makeDetailView(for: movie)) {
+        NavigationLink(destination: router.makeDetailView(for: movie)){
             content()
         }
     }

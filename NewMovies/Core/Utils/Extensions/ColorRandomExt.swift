@@ -16,5 +16,4 @@ extension Color {
         blue: .random(in: 0.5...0.6)
     )
   }
-  
 }
