@@ -6,31 +6,45 @@
 //
 
 import Foundation
-import RealmSwift
+import Core
+import Movies
+import UIKit
 
 final class Injection : NSObject {
-    private func provideRepository() -> MovieRepositoryProtocol {
-        let realm = try? Realm()
+    
+    func provideMovieList<U: UseCase>() -> U where U.Request == Int, U.Response == [MovieModel] {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let locale = GetMovieLocalDataSource(realm: appDelegate.realm)
+        let remote = GetListMovieRemoteDataSource(endpoint: Endpoints.Gets.popular.url)
+        let mapper = MovieListTransformer()
         
-        let local: LocalDataSource = LocalDataSource.sharedInstance(realm)
-        let remote: RemoteDataSource = RemoteDataSource.sharedInstance
-        
-        return MovieRepository.sharedInstance(local,remote)
+        let repository = GetListMovieRepository(localDataSource: locale, remoteDataSource: remote, mapper: mapper)
+        return Interactor(repository: repository) as! U
     }
     
-    func provideHome() -> HomeUseCase {
-        let repository = provideRepository()
-        return HomeInteractor(repository: repository)
+    func provideMovieDetail<U: UseCase>(by id: Int) -> U where U.Request == Int, U.Response == MovieModel {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let local = GetMovieLocalDataSource(realm: appDelegate.realm)
+        let remote = GetMovieRemoteDataSource(endpoint: Endpoints.Gets.detailMovie(id: id).url)
+        let mapper = MovieTransformer()
+        let repository = GetDetailMovieRepository(localDataSource: local, remoteDataSource: remote, mapper: mapper)
+        return Interactor(repository: repository) as! U
     }
     
-    func provideDetail(by id: Int) -> DetailUseCase {
-        let repository = provideRepository()
-        return DetailMovieInteractor(by: id, repository: repository)
+    func provideFavorite<U: UseCase>() -> U where U.Request == Int, U.Response == [MovieModel] {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let local = GetFavoriteLocalDataSource(realm: appDelegate.realm)
+        let mapper = MovieListTransformer()
+        let repository = GetFavoriteMovieRepository(localDataSource: local, mapper: mapper)
+        return Interactor(repository: repository) as! U
     }
     
-    func provideFavorite() -> FavoriteUseCase {
-        let repository = provideRepository()
-        return FavoriteInteractor(repository: repository)
+    func provideUpdateFavorite<U:UseCase>() -> U where U.Request == Int, U.Response == MovieModel{
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let local = GetFavoriteLocalDataSource(realm: appDelegate.realm)
+        let mapper = MovieTransformer()
+        let repository = UpdateFavoriteMovieRepository(localeDataSource: local, mapper: mapper)
+        return Interactor(repository: repository) as! U
     }
     
 }

@@ -7,9 +7,16 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import Core
+import Movies
 
 struct DetailView: View {
-    @ObservedObject var presenter: DetailPresenter
+    @ObservedObject var presenter: MoviePresenter<
+        Interactor<Int, MovieModel, GetDetailMovieRepository<
+                    GetMovieLocalDataSource, GetMovieRemoteDataSource, MovieTransformer>>,
+        Interactor<Int, MovieModel, UpdateFavoriteMovieRepository<GetFavoriteLocalDataSource, MovieTransformer>>>
+    
+    var movie: MovieModel
     
     var body: some View {
         
@@ -22,7 +29,7 @@ struct DetailView: View {
                 detailContent
             }
         }.onAppear(perform: {
-            self.presenter.getMovieDetail()
+            self.presenter.getMovie(request: 0)
         })
         
     }
@@ -39,14 +46,14 @@ extension DetailView {
     var detailContent: some View {
         VStack {
             
-            WebImage(url: URL(string: MovieConstant.imageURL + presenter.movie.backdropPath))
+            WebImage(url: URL(string: MovieConstant.imageURL + self.presenter.item!.backdropPath))
                 .resizable()
                 .indicator(.activity)
                 .frame(maxWidth:.infinity)
                 .frame(height: 250)
                 .overlay(
                     WebImage(
-                        url: URL(string: MovieConstant.imageURL + presenter.movie.posterPath))
+                        url: URL(string: MovieConstant.imageURL + presenter.item!.posterPath))
                         .resizable()
                         .indicator(.activity)
                         .cornerRadius(20)
@@ -59,36 +66,36 @@ extension DetailView {
             VStack(alignment: .leading){
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 40) {
-                        Text(presenter.movie.title)
+                        Text(presenter.item!.title)
                             .font(.system(size: 20, weight: .bold, design: .default))
-                        Text(presenter.movie.releaseDate)
+                        Text(presenter.item!.releaseDate)
                             .font(.system(size: 16, weight: .light, design: .default))
                     }
                     Spacer()
                     VStack {
-                        if presenter.movie.favorite {
+                        if presenter.item!.favorite {
                             Image(systemName: "heart.fill")
                                 .font(.system(size: 28))
                                 .foregroundColor(.red)
                                 .onTapGesture {
-                                    self.presenter.updateFavoriteMovie()
+                                    self.presenter.updateFavoriteMovie(request: movie.id)
                                 }
                         } else {
                             Image(systemName: "heart")
                                 .font(.system(size: 28))
                                 .onTapGesture {
-                                    self.presenter.updateFavoriteMovie()
+                                    self.presenter.updateFavoriteMovie(request: movie.id)
                                 }
                         }
                         
-                        RingView(width: 44, height: 44, percent: CGFloat(presenter.movie.voteAverage), show: true)
+                        RingView(width: 44, height: 44, percent: CGFloat(presenter.item!.voteAverage), show: true)
                             .padding()
                             .animation(Animation.easeInOut.delay(0.7))
                     }
                     
                 }
                 
-                Text(presenter.movie.overview)
+                Text(presenter.item!.overview)
                 
                 Spacer()
                 
@@ -112,3 +119,4 @@ extension DetailView {
 
 
 let screen = UIScreen.main.bounds
+

@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import Core
+import Movies
 
 struct HomeView: View {
     
-    @ObservedObject var presenter: HomePresenter
+    @ObservedObject var presenter: GetListPresenter<Int, MovieModel, Interactor<Int, [MovieModel], GetListMovieRepository<GetMovieLocalDataSource, GetListMovieRemoteDataSource, MovieListTransformer>>>
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
@@ -22,14 +24,15 @@ struct HomeView: View {
                 loadingIndicator
             } else if presenter.isError {
                 errorIndicator
-            } else if presenter.movies.isEmpty {
+            } else if presenter.list.isEmpty {
                 emptyIndicator
             } else {
                 content
             }
         }.onAppear {
-            if self.presenter.movies.count == 0 {
-                self.presenter.getMovies()
+            print(self.presenter.list)
+            if self.presenter.list.count == 0 {
+                self.presenter.getList(request: 0)
             }
         }.navigationBarTitle(
             Text("Popular Movies"),displayMode: .automatic
@@ -43,7 +46,7 @@ extension HomeView {
         LoadingView()
     }
     var errorIndicator: some View {
-        CustomEmptyView(image: "movie_icon", title: presenter.errorMessages)
+        CustomEmptyView(image: "movie_icon", title: presenter.errorMessage)
     }
     
     var emptyIndicator: some View {
@@ -53,14 +56,23 @@ extension HomeView {
     var content: some View {
         ScrollView(.vertical,showsIndicators: false) {
             LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(self.presenter.movies, id: \.id) { item in
+                ForEach(self.presenter.list, id: \.id) { item in
                     ZStack {
-                        self.presenter.linkBuilder(for: item){
+                        self.linkBuilder(for: item) {
                             MovieList(movie: item)
                         }
                     }
                 }
             }
+        }
+    }
+    
+    func linkBuilder<Content: View> (
+        for movie: MovieModel,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        NavigationLink(destination: HomeRouter().makeDetailView(for: movie)){
+            content()
         }
     }
 }
