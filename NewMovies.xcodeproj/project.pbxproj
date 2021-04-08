@@ -11,8 +11,9 @@
 		9A6603B925DA1C8F00DFDDC2 /* FavoriteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6603B825DA1C8F00DFDDC2 /* FavoriteRouter.swift */; };
 		9A6603BF25DA1CA200DFDDC2 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6603BE25DA1CA200DFDDC2 /* FavoriteView.swift */; };
 		9A6603C625DAA7C000DFDDC2 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6603C525DAA7C000DFDDC2 /* ProfileView.swift */; };
-		9AC7F5F4260B166500739F79 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC7F5F3260B166500739F79 /* AppDelegate.swift */; };
-		9AC7F5F7260B166F00739F79 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC7F5F6260B166F00739F79 /* SceneDelegate.swift */; };
+		9A8F39CA261E023F00735950 /* NewMoviesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F39C9261E023F00735950 /* NewMoviesApp.swift */; };
+		9A8F39CD261E02E300735950 /* AppComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F39CC261E02E300735950 /* AppComponent.swift */; };
+		9A8F39D0261E02ED00735950 /* CommonModules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8F39CF261E02ED00735950 /* CommonModules.swift */; };
 		9ACFB3C025E63782005B92D4 /* Movies in Frameworks */ = {isa = PBXBuildFile; productRef = 9ACFB3BF25E63782005B92D4 /* Movies */; };
 		9ADC92F425E249CC002E9F5D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9ADC92F325E249CC002E9F5D /* RxSwift */; };
 		9ADC92F625E249CC002E9F5D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 9ADC92F525E249CC002E9F5D /* RxCocoa */; };
@@ -30,7 +31,6 @@
 		B42A90A925D5716C002DBA02 /* CustomEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42A90A825D5716C002DBA02 /* CustomEmptyView.swift */; };
 		B42A90AC25D5720D002DBA02 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42A90AB25D5720D002DBA02 /* LoadingView.swift */; };
 		B42B35A325C94D730021B7D9 /* ColorRandomExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42B35A225C94D730021B7D9 /* ColorRandomExt.swift */; };
-		B42C9F8625C9583600199A41 /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42C9F8525C9583600199A41 /* Injection.swift */; };
 		B4D1AD5D25D18D0A002B1A3C /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D1AD5C25D18D0A002B1A3C /* String+Ext.swift */; };
 		B4D1AD6025D18D12002B1A3C /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D1AD5F25D18D12002B1A3C /* Date+Ext.swift */; };
 /* End PBXBuildFile section */
@@ -39,8 +39,9 @@
 		9A6603B825DA1C8F00DFDDC2 /* FavoriteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRouter.swift; sourceTree = "<group>"; };
 		9A6603BE25DA1CA200DFDDC2 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		9A6603C525DAA7C000DFDDC2 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		9AC7F5F3260B166500739F79 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9AC7F5F6260B166F00739F79 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		9A8F39C9261E023F00735950 /* NewMoviesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMoviesApp.swift; sourceTree = "<group>"; };
+		9A8F39CC261E02E300735950 /* AppComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppComponent.swift; sourceTree = "<group>"; };
+		9A8F39CF261E02ED00735950 /* CommonModules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonModules.swift; sourceTree = "<group>"; };
 		9ADF561425D9017A00BB0987 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		9ADF561B25D901B100BB0987 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		B428388225C791FE00B385FF /* NewMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,7 +57,6 @@
 		B42A90A825D5716C002DBA02 /* CustomEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmptyView.swift; sourceTree = "<group>"; };
 		B42A90AB25D5720D002DBA02 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		B42B35A225C94D730021B7D9 /* ColorRandomExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRandomExt.swift; sourceTree = "<group>"; };
-		B42C9F8525C9583600199A41 /* Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injection.swift; sourceTree = "<group>"; };
 		B4D1AD5C25D18D0A002B1A3C /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		B4D1AD5F25D18D12002B1A3C /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,8 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				B428388725C791FE00B385FF /* ContentView.swift */,
-				9AC7F5F3260B166500739F79 /* AppDelegate.swift */,
-				9AC7F5F6260B166F00739F79 /* SceneDelegate.swift */,
+				9A8F39C9261E023F00735950 /* NewMoviesApp.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -212,7 +211,8 @@
 		B42838B325C7998B00B385FF /* DI */ = {
 			isa = PBXGroup;
 			children = (
-				B42C9F8525C9583600199A41 /* Injection.swift */,
+				9A8F39CC261E02E300735950 /* AppComponent.swift */,
+				9A8F39CF261E02ED00735950 /* CommonModules.swift */,
 			);
 			path = DI;
 			sourceTree = "<group>";
@@ -380,21 +380,21 @@
 			files = (
 				B4D1AD5D25D18D0A002B1A3C /* String+Ext.swift in Sources */,
 				9ADF561525D9017A00BB0987 /* DetailView.swift in Sources */,
-				9AC7F5F4260B166500739F79 /* AppDelegate.swift in Sources */,
 				B42B35A325C94D730021B7D9 /* ColorRandomExt.swift in Sources */,
 				B42A90A925D5716C002DBA02 /* CustomEmptyView.swift in Sources */,
 				B42838F525C8499200B385FF /* HomeView.swift in Sources */,
+				9A8F39CA261E023F00735950 /* NewMoviesApp.swift in Sources */,
 				B42838D725C8130A00B385FF /* CustomError+Ext.swift in Sources */,
 				B42838F825C8561400B385FF /* MovieList.swift in Sources */,
 				B4D1AD6025D18D12002B1A3C /* Date+Ext.swift in Sources */,
 				B428388825C791FE00B385FF /* ContentView.swift in Sources */,
 				9A6603B925DA1C8F00DFDDC2 /* FavoriteRouter.swift in Sources */,
 				9ADF561C25D901B100BB0987 /* HomeRouter.swift in Sources */,
+				9A8F39D0261E02ED00735950 /* CommonModules.swift in Sources */,
 				9A6603C625DAA7C000DFDDC2 /* ProfileView.swift in Sources */,
 				B42838D125C809F000B385FF /* ApiCall.swift in Sources */,
-				9AC7F5F7260B166F00739F79 /* SceneDelegate.swift in Sources */,
+				9A8F39CD261E02E300735950 /* AppComponent.swift in Sources */,
 				B42A90A625D51251002DBA02 /* RingView.swift in Sources */,
-				B42C9F8625C9583600199A41 /* Injection.swift in Sources */,
 				9A6603BF25DA1CA200DFDDC2 /* FavoriteView.swift in Sources */,
 				B42A90AC25D5720D002DBA02 /* LoadingView.swift in Sources */,
 			);
@@ -592,7 +592,7 @@
 			repositoryURL = "https://github.com/zakywisnu/TMDb_Swift-core-package.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
+				minimumVersion = 1.2.4;
 			};
 		};
 		9ACFB3BE25E63782005B92D4 /* XCRemoteSwiftPackageReference "TMDB_Swift-Movies-Package" */ = {
@@ -600,7 +600,7 @@
 			repositoryURL = "https://github.com/zakywisnu/TMDB_Swift-Movies-Package.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.3;
+				minimumVersion = 1.2.1;
 			};
 		};
 		9ADC92F225E249CC002E9F5D /* XCRemoteSwiftPackageReference "RxSwift" */ = {

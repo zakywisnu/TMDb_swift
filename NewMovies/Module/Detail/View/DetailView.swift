@@ -11,12 +11,8 @@ import Core
 import Movies
 
 struct DetailView: View {
-    @ObservedObject var presenter: MoviePresenter<
-        Interactor<Int, MovieModel, GetDetailMovieRepository<
-                    GetMovieLocalDataSource, GetMovieRemoteDataSource, MovieTransformer>>,
-        Interactor<Int, MovieModel, UpdateFavoriteMovieRepository<GetFavoriteLocalDataSource, MovieTransformer>>>
-    
-    var movie: MovieModel
+    @ObservedObject var presenter: MovieDetailPresenter
+    @ObservedObject var updateFavoritePresenter: UpdateFavoriteMoviePresenter
     
     var body: some View {
         
@@ -29,7 +25,7 @@ struct DetailView: View {
                 detailContent
             }
         }.onAppear(perform: {
-            self.presenter.getMovie(request: 0)
+            self.presenter.execute()
         })
         
     }
@@ -78,13 +74,13 @@ extension DetailView {
                                 .font(.system(size: 28))
                                 .foregroundColor(.red)
                                 .onTapGesture {
-                                    self.presenter.updateFavoriteMovie(request: movie.id)
+                                    self.presenter.execute()
                                 }
                         } else {
                             Image(systemName: "heart")
                                 .font(.system(size: 28))
                                 .onTapGesture {
-                                    self.presenter.updateFavoriteMovie(request: movie.id)
+//                                    self.presenter.updateFavoriteMovie(request: movie.id)
                                 }
                         }
                         

@@ -11,7 +11,8 @@ import Movies
 
 struct FavoriteView: View {
     
-    @ObservedObject var presenter: GetListPresenter<Int, MovieModel, Interactor<Int, [MovieModel],GetFavoriteMovieRepository<GetFavoriteLocalDataSource, MovieListTransformer>>>
+    @ObservedObject var presenter: FavoriteMoviePresenter
+    var favoriteRouter: FavoriteRouter
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
@@ -55,7 +56,7 @@ extension FavoriteView {
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach(self.presenter.list, id: \.id) { item in
                     ZStack {
-                        self.linkBuilder(for: item){
+                        self.detailLinkBuilder(for: item){
                             MovieList(movie: item)
                         }
                     }
@@ -63,13 +64,16 @@ extension FavoriteView {
             }
         }
     }
-    
-    func linkBuilder<Content: View>(
-        for movies: MovieModel,
+}
+
+extension FavoriteView {
+    func detailLinkBuilder<Content: View>(
+        for movie: MovieModel,
         @ViewBuilder content: () -> Content
     ) -> some View {
-        NavigationLink(
-            destination: FavoriteRouter().makeDetailView(for: movies)
-        ) { content()}
+        ZStack {
+            NavigationLink(destination: favoriteRouter.makeDetailView(for: movie)) {  }
+            content()
+        }
     }
 }

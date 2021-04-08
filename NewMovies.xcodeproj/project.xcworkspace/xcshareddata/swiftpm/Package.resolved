@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "Cleanse",
+        "repositoryURL": "https://github.com/square/Cleanse",
+        "state": {
+          "branch": null,
+          "revision": "c854787f83d99527587b5387f04ccd0030e6133a",
+          "version": "4.2.6"
+        }
+      },
+      {
         "package": "Realm",
         "repositoryURL": "https://github.com/realm/realm-cocoa.git",
         "state": {
@@ -60,8 +69,8 @@
         "repositoryURL": "https://github.com/zakywisnu/TMDb_Swift-core-package.git",
         "state": {
           "branch": null,
-          "revision": "325ec8d1df0e33dc63b9ce6f4f1345b1ff5fde5c",
-          "version": "1.1.0"
+          "revision": "a39ae4238a335b25737ee60421f7bb8e5881919b",
+          "version": "1.2.4"
         }
       },
       {
@@ -69,8 +78,8 @@
         "repositoryURL": "https://github.com/zakywisnu/TMDB_Swift-Movies-Package.git",
         "state": {
           "branch": null,
-          "revision": "bec57c4178d70acb4a45bc8f5874bae3ebef6390",
-          "version": "1.1.3"
+          "revision": "b9c61338df7ea1c32ebabdf1c8e6353d8ef9d36b",
+          "version": "1.2.1"
         }
       }
     ]

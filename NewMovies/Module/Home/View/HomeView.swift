@@ -11,7 +11,9 @@ import Movies
 
 struct HomeView: View {
     
-    @ObservedObject var presenter: GetListPresenter<Int, MovieModel, Interactor<Int, [MovieModel], GetListMovieRepository<GetMovieLocalDataSource, GetListMovieRemoteDataSource, MovieListTransformer>>>
+    var homeRouter: HomeRouter
+    
+    @ObservedObject var presenter: MovieListPresenter
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
@@ -32,7 +34,7 @@ struct HomeView: View {
         }.onAppear {
             print(self.presenter.list)
             if self.presenter.list.count == 0 {
-                self.presenter.getList(request: 0)
+                self.presenter.getList(request: nil)
             }
         }.navigationBarTitle(
             Text("Popular Movies"),displayMode: .automatic
@@ -58,7 +60,7 @@ extension HomeView {
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach(self.presenter.list, id: \.id) { item in
                     ZStack {
-                        self.linkBuilder(for: item) {
+                        self.detailLinkBuilder(for: item) {
                             MovieList(movie: item)
                         }
                     }
@@ -67,11 +69,15 @@ extension HomeView {
         }
     }
     
-    func linkBuilder<Content: View> (
+}
+
+extension HomeView {
+    func detailLinkBuilder<Content: View>(
         for movie: MovieModel,
         @ViewBuilder content: () -> Content
     ) -> some View {
-        NavigationLink(destination: HomeRouter().makeDetailView(for: movie)){
+        ZStack {
+            NavigationLink(destination: homeRouter.makeDetailView(for: movie)) {  }
             content()
         }
     }
