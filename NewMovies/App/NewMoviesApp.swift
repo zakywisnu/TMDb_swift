@@ -12,7 +12,7 @@ import Cleanse
 
 @main
 class NewMoviesApp: App {
-    var homePresenter: MovieListPresenter
+    var homePresenter: MovieListPresenter!
     var favoritePresenter: FavoriteMoviePresenter!
     var homeRouter: HomeRouter!
     var favoriteRouter: FavoriteRouter!

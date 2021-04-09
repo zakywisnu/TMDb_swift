@@ -9,6 +9,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 import Core
 import Movies
+import Cleanse
 
 struct DetailView: View {
     @ObservedObject var presenter: MovieDetailPresenter
@@ -74,13 +75,13 @@ extension DetailView {
                                 .font(.system(size: 28))
                                 .foregroundColor(.red)
                                 .onTapGesture {
-                                    self.presenter.execute()
+//                                    self.updateFavoritePresenter.execute(request: presenter.item!.id)
                                 }
                         } else {
                             Image(systemName: "heart")
                                 .font(.system(size: 28))
                                 .onTapGesture {
-//                                    self.presenter.updateFavoriteMovie(request: movie.id)
+//                                    self.updateFavoritePresenter.execute(request: presenter.item!.id)
                                 }
                         }
                         

@@ -59,10 +59,10 @@ extension HomeView {
         ScrollView(.vertical,showsIndicators: false) {
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach(self.presenter.list, id: \.id) { item in
-                    ZStack {
+                    
                         self.detailLinkBuilder(for: item) {
                             MovieList(movie: item)
-                        }
+                        
                     }
                 }
             }

@@ -14,7 +14,7 @@ struct AppComponent: Cleanse.RootComponent {
     typealias Root = PropertyInjector<NewMoviesApp>
     static func configure(binder: Binder<Singleton>) {
         binder.include(module: MovieListPresenter.Module.self)
-        binder.include(module: FavoriteMoviePresenter.Module.self)
+//        binder.include(module: FavoriteMoviePresenter.Module.self)
         binder.include(module: HomeRouter.Module.self)
         binder.include(module: FavoriteRouter.Module.self)
     }
@@ -26,13 +26,3 @@ struct AppComponent: Cleanse.RootComponent {
     }
     
 }
-
-
-
-//        binder.include(module: CoreAppModule.self)
-//        binder.include(module: RootWindowModule.self)
-//struct CoreAppModule: Cleanse.Module {
-//    static func configure(binder: Binder<Singleton>) {
-//        binder.include(module: FoundationCommonModule.self)
-//    }
-//}

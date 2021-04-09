@@ -15,13 +15,17 @@ class FavoriteRouter {
     let detailPresenter: Factory<MovieDetailPresenter.AssistedFeed>
     let updateFavorite: UpdateFavoriteMoviePresenter
     
-    init(detailPresenter: Factory<MovieDetailPresenter.AssistedFeed>, updateFavoritePresenter: UpdateFavoriteMoviePresenter) {
+    init(detailPresenter: Factory<MovieDetailPresenter.AssistedFeed>
+         , updateFavoritePresenter: UpdateFavoriteMoviePresenter
+    ) {
         self.detailPresenter = detailPresenter
         self.updateFavorite = updateFavoritePresenter
     }
     
     func makeDetailView(for movie: MovieModel) -> some View {
-        return DetailView(presenter: detailPresenter.build(movie), updateFavoritePresenter: updateFavorite)
+        return DetailView(presenter: detailPresenter.build(movie)
+                          , updateFavoritePresenter: updateFavorite
+        )
     }
 }
 

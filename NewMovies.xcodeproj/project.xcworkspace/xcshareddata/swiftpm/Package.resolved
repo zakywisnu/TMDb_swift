@@ -69,8 +69,8 @@
         "repositoryURL": "https://github.com/zakywisnu/TMDb_Swift-core-package.git",
         "state": {
           "branch": null,
-          "revision": "a39ae4238a335b25737ee60421f7bb8e5881919b",
-          "version": "1.2.4"
+          "revision": "553e45d0b046ba8301010fed175f91f7643d3c40",
+          "version": "1.2.5"
         }
       },
       {
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/zakywisnu/TMDB_Swift-Movies-Package.git",
         "state": {
           "branch": null,
-          "revision": "b9c61338df7ea1c32ebabdf1c8e6353d8ef9d36b",
-          "version": "1.2.1"
+          "revision": "e45ed457a90ecd7de9ccbe11c30b432581092d77",
+          "version": "1.2.4"
         }
       }
     ]
