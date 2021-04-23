@@ -77,8 +77,9 @@ extension HomeView {
         @ViewBuilder content: () -> Content
     ) -> some View {
         ZStack {
-            NavigationLink(destination: homeRouter.makeDetailView(for: movie)) {  }
-            content()
+            NavigationLink(destination: homeRouter.makeDetailView(for: movie)) {
+                content()
+            }
         }
     }
 }

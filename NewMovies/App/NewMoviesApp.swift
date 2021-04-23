@@ -18,9 +18,18 @@ class NewMoviesApp: App {
     var favoriteRouter: FavoriteRouter!
     
     required init() {
-        let propertyInjector = try? ComponentFactory.of(AppComponent.self).build(())
-        propertyInjector?.injectProperties(into: self)
-    
+      
+      do {
+        let propertyInjector = try ComponentFactory.of(AppComponent.self).build(())
+        propertyInjector.injectProperties(into: self)
+      } catch {
+        print(error)
+      }
+      
+      precondition(homePresenter != nil)
+      precondition(favoritePresenter != nil)
+      precondition(homeRouter != nil)
+      precondition(favoriteRouter != nil)
     }
     
     var body: some Scene {

@@ -72,8 +72,10 @@ extension FavoriteView {
         @ViewBuilder content: () -> Content
     ) -> some View {
         ZStack {
-            NavigationLink(destination: favoriteRouter.makeDetailView(for: movie)) {  }
-            content()
+            NavigationLink(destination: favoriteRouter.makeDetailView(for: movie)) {
+                content()
+            }
+            
         }
     }
 }

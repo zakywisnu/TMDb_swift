@@ -588,7 +588,7 @@
 			repositoryURL = "https://github.com/zakywisnu/TMDb_Swift-core-package.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.5;
+				minimumVersion = 1.2.7;
 			};
 		};
 		9AA49BF1261FF98C00BDA2CD /* XCRemoteSwiftPackageReference "TMDB_Swift-Movies-Package" */ = {
