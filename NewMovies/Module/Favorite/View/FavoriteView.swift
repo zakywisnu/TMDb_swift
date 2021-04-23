@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import Core
+import Movies
 
 struct FavoriteView: View {
     
-    @ObservedObject var presenter: FavoritePresenter
+    @ObservedObject var presenter: FavoriteMoviePresenter
+    var favoriteRouter: FavoriteRouter
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
@@ -22,13 +25,13 @@ struct FavoriteView: View {
                 loadingIndicator
             } else if presenter.isError {
                 errorIndicator
-            } else if presenter.movie.isEmpty {
+            } else if presenter.list.isEmpty {
                 emptyIndicator
             } else {
                 content
             }
         }.onAppear{
-            self.presenter.getFavoriteMovie()
+            self.presenter.getList(request: nil)
         }
         .navigationBarTitle(
             Text("Favorite Movies"), displayMode: .automatic
@@ -41,7 +44,7 @@ extension FavoriteView {
         LoadingView()
     }
     var errorIndicator: some View {
-        CustomEmptyView(image: "movie_icon", title: presenter.errorMessages)
+        CustomEmptyView(image: "movie_icon", title: presenter.errorMessage)
     }
     
     var emptyIndicator: some View {
@@ -51,14 +54,28 @@ extension FavoriteView {
     var content: some View {
         ScrollView(.vertical,showsIndicators: false) {
             LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(self.presenter.movie, id: \.id) { item in
+                ForEach(self.presenter.list, id: \.id) { item in
                     ZStack {
-                        self.presenter.linkBuilder(for: item){
+                        self.detailLinkBuilder(for: item){
                             MovieList(movie: item)
                         }
                     }
                 }
             }
+        }
+    }
+}
+
+extension FavoriteView {
+    func detailLinkBuilder<Content: View>(
+        for movie: MovieModel,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        ZStack {
+            NavigationLink(destination: favoriteRouter.makeDetailView(for: movie)) {
+                content()
+            }
+            
         }
     }
 }
